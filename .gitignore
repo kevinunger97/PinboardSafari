@@ -1,0 +1,38 @@
+.DS_Store
+/site/accounts
+/assets/avatars
+/thumbs/*
+
+# Site config
+/site/config/config.php
+.htaccess
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+**/node_modules/
+**/.tmp
+**/.sass-cache
+**/bower_components/
+
+# IntelliJ
+.idea
+
