@@ -1,44 +1,19 @@
 var _console = safari.extension.globalPage.contentWindow.console;
 var authToken = "auth_token=losfinkos:6CD9FA811801DB045752";
 
-function doAjax(url, onSuccess) {
-  var xmlhttp;
-  xmlhttp = new XMLHttpRequest();
-
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 ) {
-      if(xmlhttp.status == 200){
-        onSuccess(xmlhttp.responseText);
-      } else if(xmlhttp.status == 400) {
-        alert('There was an error 400')
-      } else {
-        alert('something else other than 200 was returned')
-      }
-    }
-  }
-
-  xmlhttp.open("GET", url + "?" + authToken, true);
-  xmlhttp.send();
-}
-
 function loadRecent() {
-  _console.log("Load recent");
-  doAjax("https://api.pinboard.in/v1/posts/recent", function(response) {
-    var container = safari.extension.popovers[0].contentWindow.document.getElementById("recentBookmarks")
-    var parser = new DOMParser();
-    var xmlDoc = parser.parseFromString(response,"text/xml");
-    var posts = xmlDoc.getElementsByTagName("post");
-    var ul = document.createElement("ul");
+  $.get("https://api.pinboard.in/v1/posts/recent?" + authToken, function(response) {
+    _console.log("response", response);
+    var $container = $(safari.extension.popovers[0].contentWindow.document.getElementById("recentBookmarks"));
+    var posts = response.getElementsByTagName("post");
+    var $ul = $("<ul></ul>");
     for (var i = 0, len = posts.length; i < len; i++) {
       var href = posts[i].getAttribute("href");
-      var li = document.createElement("li");
-      var link = document.createElement("a");
-      link.setAttribute("href", href);
-      link.appendChild(document.createTextNode(href));
-      li.appendChild(link);
-      ul.appendChild(li);
+      var desc = posts[i].getAttribute("description");
+      var link = $("<a href='" + href + "'>" + desc + "</a>");
+      $ul.append($("<li></li>").append(link));
     }
-    container.appendChild(ul);
+    $container.append($ul);
   });
 }
 
