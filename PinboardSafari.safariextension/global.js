@@ -22,6 +22,7 @@ function doAjax(url, onSuccess) {
 }
 
 function loadRecent() {
+  _console.log("Load recent");
   doAjax("https://api.pinboard.in/v1/posts/recent", function(response) {
     var container = safari.extension.popovers[0].contentWindow.document.getElementById("recentBookmarks")
     var parser = new DOMParser();
@@ -50,13 +51,12 @@ function performCommand (command) {
 function addBookmark(url) {
   var activeWindow = safari.application.activeBrowserWindow;
   var url = activeWindow.activeTab.url;
-
-  myPop = safari.extension.createPopover(
-    "myPopoverID",
-    safari.extension.baseURI + "recent.html");
-
-  safari.extension.toolbarItems[0].popover = myPop;
   safari.extension.toolbarItems[0].showPopover();
 }
+
+myPop = safari.extension.createPopover(
+  "myPopoverID",
+  safari.extension.baseURI + "recent.html");
+safari.extension.toolbarItems[0].popover = myPop;
 
 safari.application.addEventListener("command", performCommand, false);
