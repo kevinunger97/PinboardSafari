@@ -9,11 +9,16 @@
       overflow: none;
     }
   </style>
+  <script type="text/javascript" src="lib/zepto.min.js"></script>
   <script>
     function load() {
       var url = safari.application.activeBrowserWindow.activeTab.url;
-      var iframe = document.getElementById("add-bookmark");
-      iframe.setAttribute("src", "https://pinboard.in/add?url=" + url);
+      var iframe = $("#add-bookmark");
+      iframe.hide();
+      iframe.on("load", function() {
+        iframe.show();
+      });
+      iframe.attr("src", "https://pinboard.in/add?url=" + url);
     }
     safari.application.addEventListener("popover", load, true);
   </script>
