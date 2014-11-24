@@ -1,11 +1,10 @@
 var _console = safari.extension.globalPage.contentWindow.console;
-var authToken = "auth_token=losfinkos:6CD9FA811801DB045752";
+var authToken = "put your Pinboard auth token here";
 
-function loadRecent() {
+function loadRecent(_document) {
   $.get("https://api.pinboard.in/v1/posts/recent?" + authToken, function(response) {
     _console.log("response", response);
-    var popover = util.getPopoverById("popover_recent");
-    var $container = $(popover.contentWindow.document.getElementById("recentBookmarks"));
+    var $container = $(_document.getElementById("recentBookmarks"));
     var posts = response.getElementsByTagName("post");
     var $ul = $("<ul></ul>");
     for (var i = 0, len = posts.length; i < len; i++) {
@@ -20,19 +19,15 @@ function loadRecent() {
 
 function performCommand (command) {
   if (command.command === "btn_pinit_clicked") {
-    showRecentBookmarks();
+    // addBookmark();
+    util.showPopover("popover-add-bookmarks", "btn_pinit");
   }
-}
-
-function addBookmark(url) {
-  var activeWindow = safari.application.activeBrowserWindow;
-  var url = activeWindow.activeTab.url;
-  // implement me!
 }
 
 function showRecentBookmarks() {
   util.showPopover("popover_recent", "btn_pinit");
 }
 
-util.addPopoverToToolbarItem("popover_recent", "recent.html", "btn_pinit");
+// util.addPopoverToToolbarItem("popover_recent", "recent.html", "btn_pinit");
+util.addPopoverToToolbarItem("popover-add-bookmarks", "add-bookmark.html", "btn_pinit", 650, 320);
 safari.application.addEventListener("command", performCommand, false);

@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>PinboardSafari</title>
+  <style>
+    iframe {
+      height: 300px;
+      width: 100%;
+      overflow: none;
+    }
+  </style>
+  <script>
+    function load() {
+      var url = safari.application.activeBrowserWindow.activeTab.url;
+      var iframe = document.getElementById("add-bookmark");
+      iframe.setAttribute("src", "https://pinboard.in/add?url=" + url);
+    }
+    safari.application.addEventListener("popover", load, true);
+  </script>
+</head>
+<body>
+  <iframe id="add-bookmark" frameborder="0"></iframe>
+</body>
+</html>

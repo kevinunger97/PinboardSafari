@@ -14,8 +14,12 @@ var util = {
     toolbarItem.popover = this.getPopoverById(popoverId);
     toolbarItem.showPopover();
   },
-  addPopoverToToolbarItem: function (popoverId, page, tbitemid) {
-    var toolbaritem = util.getToolbarItemById(tbitemid)
-    toolbaritem.popover = safari.extension.createPopover(popoverId, safari.extension.baseURI + page);
+  addPopoverToToolbarItem: function (popoverId, page, tbitemid, width, height) {
+    var toolbaritem = util.getToolbarItemById(tbitemid);
+    if (width && height) {
+      toolbaritem.popover = safari.extension.createPopover(popoverId, safari.extension.baseURI + page, width, height);
+    } else {
+      toolbaritem.popover = safari.extension.createPopover(popoverId, safari.extension.baseURI + page);  
+    }
   }
 };

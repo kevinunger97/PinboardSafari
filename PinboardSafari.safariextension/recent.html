@@ -5,7 +5,7 @@
   <script>
 
   function loadRecent() {
-    safari.extension.globalPage.contentWindow.loadRecent();
+    safari.extension.globalPage.contentWindow.loadRecent(document);
   }
 
   safari.application.addEventListener("popover", loadRecent, true);
