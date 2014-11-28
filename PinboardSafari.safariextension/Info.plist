@@ -63,6 +63,8 @@
 			<string>All</string>
 		</dict>
 	</dict>
+	<key>Update Manifest URL</key>
+	<string>http://mariofink.github.io/PinboardSafari/manifest.plist</string>
 	<key>Website</key>
 	<string>http://mariofink.de</string>
 </dict>
