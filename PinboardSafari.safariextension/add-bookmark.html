@@ -12,13 +12,15 @@
   <script type="text/javascript" src="lib/zepto.min.js"></script>
   <script>
     function load() {
-      var url = safari.application.activeBrowserWindow.activeTab.url;
+      var toBookmark = encodeURIComponent(safari.application.activeBrowserWindow.activeTab.url);
+      var title = safari.application.activeBrowserWindow.activeTab.title;
+      var url = "https://pinboard.in/add?url=" + toBookmark + "&title=" + encodeURIComponent(title);
       var iframe = $("#add-bookmark");
       iframe.hide();
       iframe.on("load", function() {
         iframe.show();
       });
-      iframe.attr("src", "https://pinboard.in/add?url=" + url);
+      iframe.attr("src", url);
     }
     safari.application.addEventListener("popover", load, true);
   </script>
